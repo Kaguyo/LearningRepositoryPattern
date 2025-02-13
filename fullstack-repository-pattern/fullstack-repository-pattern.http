@@ -1,6 +1,6 @@
 @fullstack_repository_pattern_HostAddress = http://localhost:5052
 
-GET {{fullstack_repository_pattern_HostAddress}}/weatherforecast/
+GET {{fullstack_repository_pattern_HostAddress}}/
 Accept: application/json
 
 ###
