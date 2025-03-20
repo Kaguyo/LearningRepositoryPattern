@@ -5,6 +5,16 @@ using Server.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend",
+        builder => builder
+            .WithOrigins("http://localhost:5173")
+            .AllowCredentials()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+});
+
 builder.Services.AddSingleton<IUserRepository, UserRepository>();
 builder.Services.AddSingleton<UserService>();
 builder.Services.AddSingleton<UserUseCase>();
@@ -14,13 +24,14 @@ var app = builder.Build();
 app.MapPost("/users", (UserUseCase userUseCase, User user) =>
 {
     try
-    {
+    {   
         userUseCase.CreateUser(user.Username, user.Email, user.Password);
         return Results.Created($"/users/{user.Email}", user);
     }
     catch (Exception ex)
     {
-        return Results.BadRequest(new { Message = ex.Message });
+        Console.WriteLine($"Erro {ex.Message}");
+        return Results.BadRequest(new { ex.Message });
     }
 });
 
@@ -39,7 +50,7 @@ app.MapPut("/users", (UserUseCase userUseCase, User user) =>
     }
     catch (Exception ex)
     {
-        return Results.BadRequest(new { Message = ex.Message });
+        return Results.BadRequest(new { ex.Message });
     }
 });
 
@@ -48,11 +59,11 @@ app.MapDelete("/users/{email}", (UserUseCase userUseCase, string email) =>
     try
     {
         userUseCase.DeleteUser(email);
-        return Results.Ok(new { Message = "User deleted successfully." });
+        return Results.NoContent();
     }
     catch (Exception ex)
     {
-        return Results.BadRequest(new { Message = ex.Message });
+        return Results.BadRequest(new { ex.Message });
     }
 });
 

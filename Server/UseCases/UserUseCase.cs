@@ -1,18 +1,17 @@
 using Server.UserRepository;
 using Server.Domain;
-using Server.Service;
+
 
 namespace Server.UseCases
 {
     public class UserUseCase
     {
+        
         private readonly IUserRepository _repository;
-        private readonly UserService _userService;
 
-        public UserUseCase(IUserRepository repository, UserService userService)
+        public UserUseCase(IUserRepository repository)
         {
             _repository = repository;
-            _userService = userService;
         }
 
         public void CreateUser(string username, string email, string password)
@@ -24,7 +23,7 @@ namespace Server.UseCases
                 Password = password
             };
 
-            _userService.ValidateUser(user);
+            ValidateUser(user);
             _repository.Add(user);
         }
 
@@ -35,7 +34,7 @@ namespace Server.UseCases
 
         public void UpdateUser(User user)
         {
-            _userService.ValidateUser(user);
+            ValidateUser(user);
             _repository.Update(user);
         }
 
@@ -46,6 +45,21 @@ namespace Server.UseCases
                 throw new ArgumentException("User not found.");
 
             _repository.Delete(user);
+        }
+
+        private void ValidateUser(User user)
+        {
+            if (string.IsNullOrWhiteSpace(user.Username))
+                throw new ArgumentException("Username is required.");
+
+            if (string.IsNullOrWhiteSpace(user.Email))
+                throw new ArgumentException("Email is required.");
+
+            if (string.IsNullOrWhiteSpace(user.Password))
+                throw new ArgumentException("Password is required.");
+
+            if (user.Password.Length < 6)
+                throw new ArgumentException("Password must be at least 6 characters long.");
         }
     }
 }
