@@ -26,11 +26,12 @@ builder.Services.AddScoped<CreateUserUseCase>();
 
 var app = builder.Build();
 
-app.MapPost("/users", async (CreateUserUseCase createUserUseCase, User user) =>
+app.MapPost("/users", async (CreateUserUseCaseTest createUserUseCase, User user) =>
 {
     try
     {   
         var createdUser = await createUserUseCase.Execute(user.Username, user.Email, user.Password);
+        Console.WriteLine(UserRepository._users);
         return Results.Created($"/users/{createdUser.Email}", createdUser);
     }
     catch (Exception ex)

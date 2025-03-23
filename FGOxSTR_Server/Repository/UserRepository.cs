@@ -6,7 +6,12 @@ namespace FGOxSTR_Server.Repository
 {   
     public class UserRepository : IUserRepository
     {
-        static private readonly List<User> _users = new();
+        static internal readonly List<User> _users = new();
+
+        public int GetUserId() 
+        { 
+            return _users.Count; 
+        }
 
         private readonly ApplicationDbContext _context;
 

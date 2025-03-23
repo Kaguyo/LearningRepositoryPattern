@@ -9,7 +9,7 @@ namespace FGOxSTR_Server.Data
 
         public DbSet<User> Users { get; set; }
 
-        public int GetUserCount()
+        public int GetUserId()
         {   
             return Users.Count();
         }

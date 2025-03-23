@@ -9,6 +9,8 @@ namespace FGOxSTR_Server.Repository
 
         Task AddUserInMemory(User user);
         User? GetByEmailInMemory(string email);
+
+        int GetUserId();
     }
 
 }

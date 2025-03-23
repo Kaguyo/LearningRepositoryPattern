@@ -8,8 +8,6 @@ namespace FGOxSTR_Server.UseCases
     {
         private readonly IUserRepository _userRepository;
 
-        static private int Id = 60000000;
-
         public CreateUserUseCaseTest(IUserRepository userRepository)
         {
             _userRepository = userRepository;
@@ -27,12 +25,10 @@ namespace FGOxSTR_Server.UseCases
                 Username = username,
                 Email = email,
                 Password = password,
-                Id = Id
+                Id = _userRepository.GetUserId() + 60000000
             };
 
             await _userRepository.AddUserInMemory(user);
-
-            Id++;
 
             return user;
         }

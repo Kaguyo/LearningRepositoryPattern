@@ -26,7 +26,7 @@ namespace FGOxSTR_Server.UseCases
                 Username = username,
                 Email = email,
                 Password = password,
-                Id = _context.GetUserCount()
+                Id = _context.GetUserId() + 60000000
             };
 
             await _userRepository.AddAsync(user);
