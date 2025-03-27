@@ -31,7 +31,6 @@ app.MapPost("/users", async (CreateUserUseCaseTest createUserUseCase, User user)
     try
     {   
         var createdUser = await createUserUseCase.Execute(user.Username, user.Email, user.Password);
-        Console.WriteLine(UserRepository._users);
         return Results.Created($"/users/{createdUser.Email}", createdUser);
     }
     catch (Exception ex)
@@ -40,5 +39,6 @@ app.MapPost("/users", async (CreateUserUseCaseTest createUserUseCase, User user)
         return Results.BadRequest(new { ex.Message });
     }
 });
+
 
 app.Run();

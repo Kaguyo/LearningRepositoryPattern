@@ -1,6 +1,7 @@
 using System.Numerics;
 using FGOxSTR_Server.Domain;
 using FGOxSTR_Server.Repository;
+using Isopoh.Cryptography.Argon2;
 
 namespace FGOxSTR_Server.UseCases
 {
@@ -24,7 +25,7 @@ namespace FGOxSTR_Server.UseCases
             {
                 Username = username,
                 Email = email,
-                Password = password,
+                Password = Argon2.Hash(password),
                 Id = _userRepository.GetUserId() + 60000000
             };
 

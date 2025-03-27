@@ -14,7 +14,7 @@ namespace FGOxSTR_Server.Domain
 
         public override string ToString()
         {
-            return $"ID: {Id}, Name: {Username}, Email: {Email}";
+            return $"ID: {Id}, Name: {Username}, Email: {Email},  Senha: {Password}";
         }
     }
 }
