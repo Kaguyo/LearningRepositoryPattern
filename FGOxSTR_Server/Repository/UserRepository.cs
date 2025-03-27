@@ -42,11 +42,9 @@ namespace FGOxSTR_Server.Repository
             return Task.CompletedTask;
         }
 
-
         public User? GetByEmailInMemory(string email)
         {
-            return _users.FirstOrDefault(user => user.Email == email); 
+            return _users.FirstOrDefault(user => user.Email == email);
         }
-
     }
 }
