@@ -5,11 +5,11 @@ using Isopoh.Cryptography.Argon2;
 
 namespace FGOxSTR_Server.UseCases
 {
-    public class CreateUserUseCaseTest
+    public class CreateUserUseCaseInMemory
     {
         private readonly IUserRepository _userRepository;
 
-        public CreateUserUseCaseTest(IUserRepository userRepository)
+        public CreateUserUseCaseInMemory(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }

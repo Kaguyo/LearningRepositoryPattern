@@ -21,14 +21,14 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 );
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<CreateUserUseCaseTest>();
+builder.Services.AddScoped<CreateUserUseCaseInMemory>();
 builder.Services.AddScoped<CreateUserUseCase>();
-builder.Services.AddScoped<LoginUserUseCaseTest>();
+builder.Services.AddScoped<LoginUserUseCaseInMemory>();
 builder.Services.AddScoped<LoginUserUseCase>();
 
 var app = builder.Build();
 
-app.MapPost("/users", async (CreateUserUseCaseTest createUserUseCase, User user) =>
+app.MapPost("/users", async (CreateUserUseCaseInMemory createUserUseCase, User user) =>
 {
     try
     {   
@@ -42,7 +42,7 @@ app.MapPost("/users", async (CreateUserUseCaseTest createUserUseCase, User user)
     }
 });
 
-app.MapPost("/auth/login", async (LoginUserUseCaseTest loginUseCase, User user) =>
+app.MapPost("/auth/login", async (LoginUserUseCaseInMemory loginUseCase, User user) =>
 {
     try
     {
